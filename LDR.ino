@@ -1,6 +1,6 @@
 //int ldr=2;
 #include<Servo.h>
-Servo sweaty;
+Servo sweaty11;
 
 
 void setup() {
