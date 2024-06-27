@@ -9,7 +9,6 @@ int main(){
     res=num+2;
     printf("%d",res);
     return 0;
-
 // ======================================================================================
 // Question: Get a number from user and subtract 5 to that number and print the result.
 // Example: Input :45 Output 40. Input:56789 Output:56784
@@ -185,3 +184,30 @@ int main(){
     return 0;
 }
 //===============================================================================
+// Question: Get a two-digit number from user and print the reverse of the number.
+// Example: Input: 56 Output 65. Input: 59 Output: 95
+#include <stdio.h>
+int main(){
+    int num,rim,rev=0;
+    printf("enter a 2digit num:");
+    scanf("%d",&num);
+    if((num<-9&&num>-100)||(num>9&&num<100)){
+        loop:
+        if(num>0){
+            rim =num%10;
+            rev=rev*10+rim;
+            num =num/10;
+            
+            goto loop;
+        }
+        printf("%d\n",rev);
+        
+    }
+    else{
+        printf("enter a valid 2digit num!");
+
+    }
+    return 0;
+}
+// ======================================================================================
+
