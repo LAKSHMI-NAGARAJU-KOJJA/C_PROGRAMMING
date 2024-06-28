@@ -260,4 +260,22 @@ int main(){
     }
     return 0;
 }
+// ======================================================================================
+// Question: Get a two-digit number from user and make the one’s digit as 0,then print it.
+// Example: Input: 95 Output 90. Input: 18 Output: 10
+#include <stdio.h>
+int main(){
+    int num,rim,rev;
+    printf("enter a valid 2digit num:");
+    scanf("%d",&num);
+    if((num<-9&&num>-100)||(num>9&&num<100)){
+        rim=num/10;
+        rev = rim*10;
+        printf("%d",rev);
+    }
+    else{
+        printf("enter a valid 2digit num!");
+    }
+    return 0;
+}
 
