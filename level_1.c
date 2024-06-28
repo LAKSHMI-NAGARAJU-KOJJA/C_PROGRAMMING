@@ -235,5 +235,29 @@ int main(){
     return 0;
 }
 // ======================================================================================
-
+// Question: Get a four-digit number from user and only reverse the last two digits of the number, then print the number.
+// Example: Input: 9561 Output 5961. Input: 3859 Output: 8359
+#include <stdio.h>
+int main(){
+    int num,rev1,quo1,quo2,quo3=0,sum;
+    printf("enter a 4digit num:");
+    scanf("%d",&num);
+    if((num<-999&&num>-10000)||(num>999&&num<10000)){
+        rev1=num%100;
+        quo1=num/100;
+        loop:
+        if(quo1>0){
+            quo2=quo1%10;
+            quo3=quo3*10+quo2;
+            quo1=quo1/10;
+            goto loop;
+        }
+        sum=(quo3*100)+rev1;
+        printf("%d",sum);
+    }
+    else{
+        printf("enter a valid 4digit num!");
+    }
+    return 0;
+}
 
