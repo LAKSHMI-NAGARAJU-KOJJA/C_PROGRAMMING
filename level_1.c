@@ -278,4 +278,44 @@ int main(){
     }
     return 0;
 }
+// ======================================================================================
+// Question: Get a two-digit number from user and make the ten’s digit 1,then print it.
+// Example: Input: 95 Output 15. Input: 82 Output: 12
+#include <stdio.h>
+int main(){
+    int num,rim,rev;
+    printf("enter a valid 2digit num:");
+    scanf("%d",&num);
+    if((num<-9&&num>-100)||(num>9&&num<100)){
+        rim=num%10;
+        rev=10+rim;
+        printf("%d",rev);
+    }
+    else{
+        printf("enter a valid 2digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
+// Question: Get a three-digit number from user and make the one’s digit as 2, then print it.
+// Example: Input: 695 Output 692. Input: 182 Output: 182
+#include <stdio.h>
+int main(){
+    int num,rim,rev;
+    printf("enter a 3digit num:");
+    scanf("%d",&num);
+    if((num<-99&&num>-1000)||(num>99&&num<1000)){
+        rim=num/10;
+        rev=(rim*10)+2;
+        printf("%d",rev);
+    }
+    else{
+        printf("enter a valid 3digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
+
+
+
 
