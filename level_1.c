@@ -315,6 +315,26 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a three-digit number from user and make the ten’s digit as 0, then print it.
+// Example: Input: 695 Output 605. Input: 182 Output: 102
+#include <stdio.h>
+int main(){
+    int num,rim1,rim2,rev;
+    printf("enter a 3digit num:");
+    scanf("%d",&num);
+    if((num<-99&&num>-1000)||(num>99&&num<1000)){
+        rim1=num/100;
+        rim2=num%10;
+        rev=(rim1*100)+rim2;
+        printf("%d",rev);
+    }
+    else{
+        printf("enter a valid 3digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
+
 
 
 
