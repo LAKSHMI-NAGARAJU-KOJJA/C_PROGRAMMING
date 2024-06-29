@@ -591,6 +591,74 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get two 2-digit numbers from user. Print the sum of digits of the biggest number.
+// Example: Input: 56 78 – Output: 15
+// Input: 14 65 - Output: 11
+#include <stdio.h>
+int main(){
+    int num1,num2,sum=0,rim;
+    printf("enter two 2digit numbers:");
+    scanf("%d%d",&num1,&num2);
+    if(((num1<-9&&num1>-100)||(num1>9&&num1<100))&&((num2<-9&&num2>-100)||(num2>9&&num2<100))){
+        if(num1>num2){
+            printf("large num is %d\t",num1);
+            while(num1>0){
+                rim=num1%10;
+                sum=sum+rim;
+                num1=num1/10;
+            }
+            printf("sum is %d\n",sum);
+        }
+        else if(num2>num1){
+            printf("large num is %d\t",num2);
+            while(num2>0){
+                rim=num2%10;
+                sum=sum+rim;
+                num2=num2/10;
+            }
+            printf("sum is %d\n",sum);
+        }
+        else{
+            printf("both are same!");
+        }
+
+    }
+    else{
+        printf("enter a valid 2digit num!");
+    }
+}
+// ======================================================================================
+// Question: Get two 3-digit numbers from user. Print the difference between the one’s digit and hundred’s digit of the number whose ten’s digit is bigger than the other number’s ten’s digit
+// Example: Input: 856 978 – Output: 1
+// Input: 128 365 - Output: 2
+#include <stdio.h>
+int main(){
+    int num1,num2,tens_num1,tens_num2,dif;
+    printf("enter two 3digit numbers:");
+    scanf("%d%d",&num1,&num2);
+    if(((num1<-99&&num1>-1000)||(num1>99&&num1<1000))&&((num1<-99&&num1>-1000)||(num2>99&&num2<1000))){
+        tens_num1=((num1/10)%10);
+        tens_num2=((num2/10)%10);
+        if(tens_num1>tens_num2){
+            dif=(((num1)/100)-(num1%10));
+            printf("%d",dif);
+        }
+        else if(tens_num2>tens_num1){
+            dif=(((num2/100)-(num2%10)));
+            printf("%d",dif);
+        }
+        else{
+            printf("both are same!");
+        }
+    }
+    else{
+        printf("enter a valid two 3digit numbers");
+    }
+    return 0;
+}
+// ======================================================================================
+
+
 
 
 
