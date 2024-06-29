@@ -521,6 +521,55 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a four-digit number from user. If the sum of the ten’s digit and hundred’s digit is equal to 10, and one of the digits is more than 7 then print “Success”, otherwise print “Failure”.
+// Example: Input: 4649 – Output: Failure. Input: 9286 - Output: Success.
+#include <stdio.h>
+int main(){
+    int num,sum;
+    printf("enter a 4digit num:");
+    scanf("%d",&num);
+    if((num<-999&&num>-10000)||(num>999&&num<10000)){
+        sum=((num/10)%10+(num/100)%10);
+        if(((sum==10)&&((num/10)%10)>7)||((sum==10)&&((num/100)%10)>7)){
+            printf("Success");
+        }
+        else{
+            printf("Failure");
+        }
+
+    }
+    else{
+        printf("enter a valid 4digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
+// Question: Get a three-digit number from user. If the sum of the digits is less than 10, then print the sum, otherwise add the digits of the sum. If the sum of the digits is less than 10, then print the sum, otherwise add the digits of the sum, and print the sum. Note: The result should be always single digit only.
+// Example: Input: 123 – Output: 6
+// Input: 149 - Output: 5 (149:1+4+9 = 14: 1+4 = 5)
+// Input: 991 - Output: 1 (991: 9+9+1 = 19: 1+9 = 10: 1+0 = 1)
+#include <stdio.h>
+int main(){
+    int num,a,b,c,sum=0;
+    printf("enter a 3digit num:");
+    scanf("%d",&num);
+    if((num<-99&&num>-1000)||(num>99&&num<1000)){
+        loop:
+        sum=((num%10)+(num/10)%10+(num/100)%10);
+        if(sum<10){
+            printf("%d",sum);
+        }
+        else{
+            num = sum;
+            goto loop;
+        }     
+        }
+    else{
+        printf("enter a valid 3digit num!");
+    }
+    return 0;
+}
+
 
 
 
