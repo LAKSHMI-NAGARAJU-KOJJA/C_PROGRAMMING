@@ -430,6 +430,31 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a two-digit number from user. If the sum of the digits is 10 then print “Success”, otherwise print “Failure”.
+// Example: Input: 56 - Output Failure. Input: 37 - Output: Success.
+#include <stdio.h>
+int main(){
+    int num,two_digit,sum;
+    printf("enter a 2digit num:");
+    scanf("%d",&num);
+    if((num<-9&&num>-100)||(num>9&&num<100)){
+        sum=((num%10)+(num/10));
+        switch(sum){
+            case 10:
+                printf("Success");
+                break;
+            default:
+                printf("Failure");
+                break;
+        }
+    }
+    else{
+        printf("enter a valid 2digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
+
 
 
 
