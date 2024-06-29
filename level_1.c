@@ -387,6 +387,28 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a three-digit number from user and subtract 5 from that number if one’s digit number and 100’s digit number are same, then print the result. Do not use “if”.
+// Example: Input: 595 Output 590. Input: 372 Output: 372
+#include <stdio.h>
+int main(){
+    int num,three_digit,ones,same,sum;
+    printf("enter a 3digit num:");
+    scanf("%d",&num);
+    three_digit=((num<-99&&num>-1000)||(num>99&&num<1000));
+    switch(three_digit){
+        case 0:
+            printf("enter a valid 3digit num!");
+            break;
+        case 1:
+            ones=num%10;
+            same=(num/100)==(ones);
+            sum=num-(same*5);
+            printf("%d",sum);
+    }
+    return 0;  
+}
+// ======================================================================================
+
 
 
 
