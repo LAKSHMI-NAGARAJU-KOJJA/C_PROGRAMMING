@@ -408,6 +408,29 @@ int main(){
     return 0;  
 }
 // ======================================================================================
+// Question: Get a four-digit number from user and subtract 5 from that number if ten’s digit position and 100’s digit position is same, then print the result. Do not use “if”.
+// Example: Input: 7595 Output 7595. Input: 3772 Output: 3767
+#include <stdio.h>
+int main(){
+    int num,four_digit,tens,hundreds,same;
+    printf("enter a 4digit num:");
+    scanf("%d",&num);
+    four_digit=((num<-999&&num>-10000)||(num>999&num<10000));
+    switch(four_digit){
+        case 0:
+            printf("enter a valid 4digit num!");
+            break;
+        case 1:
+            tens=(num/10)%10;
+            hundreds=(num/100)%10;
+            same=(tens==hundreds);
+            num=num-(same*5);
+            printf("%d",num);   
+    }
+    return 0;
+}
+// ======================================================================================
+
 
 
 
