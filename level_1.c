@@ -477,6 +477,28 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a three-digit number from user. If the sum of the one’s digit and hundred’s digit is less than 10, then print “Success”, otherwise print “Failure”.
+// Example: Input: 569 - Output Failure. Input: 316 - Output: Success.
+#include <stdio.h>
+int main(){
+    int num,sum;
+    printf("enter a 3digit num:");
+    scanf("%d",&num);
+    if((num<-99&&num>-1000)||(num>99&&num<1000)){
+        sum=(num%10)+((num/100));
+        if(sum<10){
+            printf("Success");
+        }
+        else{
+            printf("Failure");
+        }
+    }
+    else{
+        printf("enter a valid 3digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
 
 
 
