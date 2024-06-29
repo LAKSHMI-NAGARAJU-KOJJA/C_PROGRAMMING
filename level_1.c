@@ -361,6 +361,33 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a two digit number from user and subtract 5 from that number if the sum of the digits of the number is odd, then print the result. Do not use “if”.
+// Example: Input: 95 Output 95. Input: 72 Output: 67
+#include <stdio.h>
+int main(){
+    int num,two_digit,sum1,sum2,odd,res;
+    printf("enter a 2digit num:");
+    scanf("%d",&num);
+    two_digit=((num<-9&&num>-100)||(num>9&&num<100));
+    // here, i'm using switch case to verify, whether the entered num is two digit or not!
+    switch(two_digit){
+        case 0:
+            printf("%d",num);
+            break;
+        case 1:
+            sum1 = num%10;
+            sum2 = sum1+(num/10);
+            odd = ((sum2%2)!=0);
+            num = num-(odd*5);
+            printf("%d",num);
+            break;
+        defalut:
+            printf("enter a valid data type!");
+    }
+    return 0;
+}
+// ======================================================================================
+
 
 
 
