@@ -372,7 +372,7 @@ int main(){
     // here, i'm using switch case to verify, whether the entered num is two digit or not!
     switch(two_digit){
         case 0:
-            printf("%d",num);
+            printf("enter a valid 2digit num!");
             break;
         case 1:
             sum1 = num%10;
