@@ -346,7 +346,21 @@ int main(){
     printf("%d",res);
 }
 // ======================================================================================
-
+// Question: Get a number from user and subtract 5 from that number if the number’s ten’s position digit is odd, then print the result. Do not use “if”.
+// Example: Input: 685 Output 685. Input: 89172 Output: 89167
+#include <stdio.h>
+int main(){
+    int num,tens_ones,tens,odd,res;
+    printf("enter a num:");
+    scanf("%d",&num);
+    tens_ones=num%100;
+    tens=tens_ones/10;
+    odd=((tens%2)!= 0);
+    res=num-(odd*5);
+    printf("%d",res);
+    return 0;
+}
+// ======================================================================================
 
 
 
