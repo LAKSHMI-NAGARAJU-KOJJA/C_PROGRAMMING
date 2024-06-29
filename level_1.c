@@ -499,6 +499,28 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get a four-digit number from user. If the sum of the ten’s digit and hundred’s digit is greater than 10, then print “Success”, otherwise print “Failure”.
+// Example: Input: 7529 – Output: Failure. Input: 9386 - Output: Success.
+#include <stdio.h>
+int main(){
+    int num,sum;
+    printf("enter a 4digit num:");
+    scanf("%d",&num);
+    if((num<-999&&num>-10000)||(num>999&&num<10000)){
+        sum=(((num/10)%10)+((num/100)%10));
+        if(sum>10){
+            printf("Success");
+        }
+        else{
+            printf("Failure");
+        }
+    }
+    else{
+        printf("enter a valid 4digit num!");
+    }
+    return 0;
+}
+// ======================================================================================
 
 
 
