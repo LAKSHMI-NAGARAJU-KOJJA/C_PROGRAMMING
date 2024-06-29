@@ -657,6 +657,43 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Get two 3-digit numbers from user. Add the one’s and hundred’s digits of both the numbers. Print the sum of all the digits of the number whose sum of one’s and hundred’s digits is bigger.
+// Example: Input: 856 978 – Output: 24
+// Input: 128 365 - Output: 11
+#include <stdio.h>
+int main(){
+    int num1,num2,sum1,sum2,rim,res=0;
+    printf("enter two 3digit numbers:");
+    scanf("%d%d",&num1,&num2);
+    if(((num1<-99&&num1>-1000)||(num1>99&&num1<1000))&&((num2<-99&&num2>-1000)||(num2>99&&num2<1000))){
+        sum1=((num1%10)+(num1/100));
+        sum2=((num2%10)+(num1/100));
+        if(sum1>sum2){
+            while(num1>0){
+                rim=num1%10;
+                res=res+rim;
+                num1=num1/10;
+            }
+            printf("%d",res);
+        }
+        else if(sum2>sum1){
+            while(num2>0){
+                rim=num2%10;
+                res=res+rim;
+                num2=num2/10;
+            }
+            printf("%d",res);
+        }
+        else{
+            printf("both sums of 1th and 100th places of two nums are same!");
+        }
+    }
+    else{
+        printf("enter two valid 3digit numbers!");
+    }
+    return 0;
+}
+// ======================================================================================
 
 
 
