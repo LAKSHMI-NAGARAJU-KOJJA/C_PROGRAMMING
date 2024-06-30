@@ -4,13 +4,13 @@
 // 3 
 // 4
 // 5
-/*#include <stdio.h>
+#include <stdio.h>
 int main(){
     for(int i=1;i<6;i++){
         printf("%d\n",i);
     }
     return 0;
-}*/
+}
 // ======================================================================================
 // Question:2 Write a loop program to print 5 to 1 on one by one. 
 // Answer: 5 
@@ -18,17 +18,17 @@ int main(){
 // 3 
 // 2 
 // 1
-/*#include <stdio.h>
+#include <stdio.h>
 int main(){
     for(int i=5;i>=1;i--){
         printf("%d\n",i);
     }
     return 0;
-}*/
+}
 // ======================================================================================
 // Question:3 Write a loop program to print sum of 1 to 5. 
 // Answer: 15
-/*#include <stdio.h>
+#include <stdio.h>
 int main(){
     int sum=0;
     for(int i=1;i<=5;i++){
@@ -36,7 +36,7 @@ int main(){
     }
     printf("%d",sum);
     return 0;
-}*/
+}
 // ======================================================================================
 // Question:4 Write a loop program to print sum of 6 to 1. 
 // Answer: 21
@@ -44,9 +44,8 @@ int main(){
 int main(){
     int sum;
     sum=0;
-    for(int i=6;i<=1;i--){
-        // sum=sum+i;
-        printf("%d",i);
+    for(int i=6;i>=1;i--){
+         sum=sum+i;
     }
     printf("%d",sum);
     return 0;
