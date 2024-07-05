@@ -6,8 +6,12 @@
 // 5
 #include <stdio.h>
 int main(){
-    for(int i=1;i<6;i++){
+    int i=1;
+    loop:
+    if(i<=5){
         printf("%d\n",i);
+        i++;
+        goto loop;
     }
     return 0;
 }
@@ -20,8 +24,12 @@ int main(){
 // 1
 #include <stdio.h>
 int main(){
-    for(int i=5;i>=1;i--){
+    int i=5;
+    loop:
+    if(i>=1){
         printf("%d\n",i);
+        i--;
+        goto loop;
     }
     return 0;
 }
@@ -30,9 +38,12 @@ int main(){
 // Answer: 15
 #include <stdio.h>
 int main(){
-    int sum=0;
-    for(int i=1;i<=5;i++){
-        sum=sum+i;
+    int i=0,sum=0;
+    loop:
+    if(i<=5){
+        sum = sum+i;
+        i++;
+        goto loop;
     }
     printf("%d",sum);
     return 0;
@@ -42,10 +53,12 @@ int main(){
 // Answer: 21
 #include <stdio.h>
 int main(){
-    int sum;
-    sum=0;
-    for(int i=6;i>=1;i--){
-         sum=sum+i;
+    int i=6,sum=0;
+    loop:
+    if(i>=1){
+        sum=sum+i;
+        i--;
+        goto loop;
     }
     printf("%d",sum);
     return 0;
@@ -59,11 +72,15 @@ int main(){
 // 9
 #include <stdio.h>
 int main(){
-    for(int i=1;i<=9;i++){
-        if((i%2)!=0){
-            printf("%d\n",i);
-        }
+   int i=1;
+   loop:
+   if(i<=9){
+    if((i%2)!=0){
+        printf("%d\n",i);
     }
+    i++;
+    goto loop;
+   }
     return 0;
 }
 // ======================================================================================
@@ -75,10 +92,14 @@ int main(){
 // 19
 #include <stdio.h>
 int main(){
-    for(int i=10;i<=20;i++){
+    int i=10;
+    loop:
+    if(i<=20){
         if((i%2)!=0){
             printf("%d\n",i);
         }
+        i++;
+        goto loop;
     }
     return 0;
 }
@@ -88,14 +109,21 @@ int main(){
 // Answer: 25 
 // 43 
 // 61
-/*#include <stdio.h>
+#include <stdio.h>
 int main(){
-    for(int i=10;i<100;i++){
-        if(((i%2)!=0)&&((i%10)+(i/10))==7)
-            printf("%d\n",i);
+    int i=10;
+    loop:
+    if(i<=99){
+        if((i%2)!=0){
+            if(((i%10)+(i/10))==7){
+                printf("%d\n",i);
+            }
+        }
+        i++;
+        goto loop;
     }
     return 0;
-}*/
+}
 // ======================================================================================
 // Question:8 Write a loop program to print the two-digit even numbers, who’s sum of 
 // digits are 6. 
@@ -104,10 +132,16 @@ int main(){
 // 60
 #include <stdio.h>
 int main(){
-    for(int i=10;i<100;i++){
-        if((i%2)==0&&((i%10)+(i/10)==6)){
-            printf("%d\n",i);
+    int i=10;
+    loop:
+    if(i<=99){
+        if(i%2==0){
+            if(((i%10)+(i/10))==6){
+                printf("%d\n",i);
+            }
         }
+        i++;
+        goto loop;
     }
     return 0;
 }
@@ -117,26 +151,32 @@ int main(){
 // Answer: 495
 #include <stdio.h>
 int main(){
-    int sum=0;
-    for(int i=10;i<100;i++){
-        if(i%10==5){
+    int i=10,sum=0;
+    loop:
+    if(i<=99){
+        if((i%10)==5){
             sum=sum+i;
         }
+        i++;
+        goto loop;
     }
     printf("%d",sum);
     return 0;
 }
-// ======================================================================================
+// =====================================================================================
 // Question:10 Write a loop program to print the sum of two-digit odd numbers, whose 
 // ten’s digit is 7. 
 // Answer: 375
 #include <stdio.h>
 int main(){
-    int sum=0;
-    for(int i=10;i<100;i++){
-        if((i%2!=0)&&(i/10)==7){
+    int i=10,sum=0;
+    loop:
+    if((i<=99)){
+        if(((i%2!=0)&&(i/10==7))){
             sum=sum+i;
         }
+               i++;
+        goto loop;
     }
     printf("%d",sum);
     return 0;
