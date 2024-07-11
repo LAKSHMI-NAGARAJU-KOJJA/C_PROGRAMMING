@@ -182,3 +182,44 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// ======================================================================================
+// Question: Write a program to get a number from user and print the sum of all digits.
+// Answer: Input: 123456 - Output – 21
+// Input: 76895439 - Output – 51
+// Input: 675 – Output - 18
+#include <stdio.h>
+int main(){
+    long long int num,sum=0;
+    printf("enter the num:");
+    scanf("%lld",&num);
+    loop:
+    if(num!=0){
+        sum=sum+(num%10);
+        num=num/10;
+        goto loop;
+    }
+    printf("%lld",sum);
+    return 0;
+}
+// ======================================================================================
+// Question: Write a program to get a number from user and print the reverse of that number
+// Answer: Input : 123456 - Output – 654321
+// Input : 76895439- Output – 93459867
+// Input : 675 – Output - 576
+#include <stdio.h>
+int main(){
+    long long int num,rim=0,rev=0;
+    printf("enter the num:");
+    scanf("%lld",&num);
+    loop:
+    if(num!=0){
+        rim=num%10;
+        rev=rev*10+rim;
+        num=num/10;
+        goto loop;
+    }
+    printf("%lld",rev);
+    return 0;
+}
+// ======================================================================================
+
