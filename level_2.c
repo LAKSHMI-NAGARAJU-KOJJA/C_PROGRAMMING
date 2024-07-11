@@ -182,8 +182,7 @@ int main(){
     return 0;
 }
 // ======================================================================================
-// ======================================================================================
-// Question: Write a program to get a number from user and print the sum of all digits.
+// Question 11: Write a program to get a number from user and print the sum of all digits.
 // Answer: Input: 123456 - Output – 21
 // Input: 76895439 - Output – 51
 // Input: 675 – Output - 18
@@ -202,7 +201,7 @@ int main(){
     return 0;
 }
 // ======================================================================================
-// Question: Write a program to get a number from user and print the reverse of that number
+// Question 12: Write a program to get a number from user and print the reverse of that number
 // Answer: Input : 123456 - Output – 654321
 // Input : 76895439- Output – 93459867
 // Input : 675 – Output - 576
@@ -222,4 +221,62 @@ int main(){
     return 0;
 }
 // ======================================================================================
-
+// ======================================================================================
+// Question 13: Write a program to get a number from user and print the reverse of that number
+// Answer: Input : 123456 - Output – 654321
+// Input : 76895439- Output – 93459867
+// Input : 675 – Output - 576
+#include <stdio.h>
+int main(){
+    int num,rim,rev=0;
+    printf("enter the num:");
+    scanf("%d",&num);
+    loop:
+    if(num>0){
+        rim=num%10;
+        rev=rev*10+rim;
+        num=num/10;
+        goto loop;
+    }
+    printf("%d",rev);
+    return 0;
+    }
+// ======================================================================================
+// Question 14: Write a program to get a number from user and interchange the first and last digits and print the result.
+// Answer: Input : 123456 - Output – 623451
+// Input : 76895439- Output – 96895437
+// Input : 675 – Output - 576
+#include <stdio.h>
+int main(){
+    int num,lastdigit,modifiednum,rim,rev=0,rim2,rev2=0,interchanged;
+    printf("enter the num:");
+    scanf("%d",&num);
+    lastdigit = num%10;
+    modifiednum=num/10;
+    loop:
+    if(num>9){
+        num=num/10;  
+        goto loop; 
+    }
+    // printf("%d",lastdigit);
+    loop2:
+    if(modifiednum>9){
+        rim2=modifiednum%10;
+        rev2=rev2*10+rim2;
+        modifiednum=modifiednum/10;
+        goto loop2;
+    }
+    int modifiednum2=rev2,rim3,rev3=lastdigit;
+    // printf("%d",rev2);
+    loop3:
+    if(modifiednum2>0){
+        rim3=modifiednum2%10;
+        rev3=rev3*10+rim3;
+        modifiednum2=modifiednum2/10;
+        goto loop3;
+    }
+    interchanged=rev3*10;
+    printf("%d",interchanged+num);
+    return 0;
+}
+// ======================================================================================
