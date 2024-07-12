@@ -317,4 +317,40 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question: Write a program get number from user print whether that number is prime or not.
+// Answer: Input : 31 - Output : Prime
+// Input : 27 - Output : Not Prime.
+#include <stdio.h>
+#include <stdbool.h>
+int main(){
+    int num,count=0,prime=false,i=2;
+    printf("enter the num:");
+    scanf("%d",&num);
+    if(num==0){
+        printf("Not Prime");
+    }
+    else if (num==1)
+    {
+        printf("Prime");
+    }
+    else{
+         loop:
+    if(i<num){
+        if(num%i==0){
+            count=count+1;
+        }
+        i=i+1;
+        goto loop;
+    }
+    if(count==0){
+        printf("Prime");
+    }
+    else{
+        printf("Not Prime");
+    }
+    }
+    return 0;
+}
+// ======================================================================================
+
 
