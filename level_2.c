@@ -396,6 +396,39 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question 18: Write a program to get number from user, print whether that number’s first two digits (ten’s digits and one’s digit) is prime.
+// Answer: Input: 359 - Output: Prime
+// Input: 3577 - Output: Not Prime
+#include <stdio.h>
+int main(){
+    int num,last_two_digits,i=2,count=0;
+    printf("enter the num:");
+    scanf("%d",&num);
+    last_two_digits=num%100;
+    if(last_two_digits==0 || last_two_digits==1){
+        printf("Not prime\n");
+    }
+    else{
+        loop:
+        if(i<last_two_digits){
+            if(last_two_digits%i==0){
+                count=count+1;
+            }
+            i=i+1;
+            goto loop;
+        }
+         if(count==0){
+        printf("Prime\n");
+    }
+    else{
+        printf("Not prime\n");
+    }
+    }
+   
+    return 0;
+}
+// ======================================================================================
+
 
 
 
