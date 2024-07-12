@@ -281,7 +281,7 @@ int main(){
 }
 // ======================================================================================
 // ======================================================================================
-// Question: Write a program to get a number from user and if the last digit of the number is even print the same number. If the last digit of the number is odd then subtract 1 from the last digit and print the number.
+// Question 15: Write a program to get a number from user and if the last digit of the number is even print the same number. If the last digit of the number is odd then subtract 1 from the last digit and print the number.
 // (Note: Last digit -MSB)
 // Answer: Input : 123456 - Output – 123456
 // Input : 96895439- Output – 86895439
@@ -317,7 +317,7 @@ int main(){
     return 0;
 }
 // ======================================================================================
-// Question: Write a program get number from user print whether that number is prime or not.
+// Question 16: Write a program get number from user print whether that number is prime or not.
 // Answer: Input : 31 - Output : Prime
 // Input : 27 - Output : Not Prime.
 #include <stdio.h>
@@ -348,5 +348,54 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// ======================================================================================
+// Question 17: Write a program to get a number from user, print whether that number is prime, and sum of digit is equal to 14.
+// Answer: Input: 59 - Output: Prime & Sum of Digits is 14
+// Input: 77 - Output: Not Prime but sum of digits is 14
+// Input: 13 - Output: Prime, but sum of Digits is not 14
+#include <stdio.h>
+#include <stdbool.h>
+int main(){
+    int num,prime=false,i=2,count=0,sum=0,sum1;
+    printf("enter the num:");
+    scanf("%d",&num);
+    if(num==0||num==1){
+        printf("Not prime");
+    }
+    else{
+        loop:
+        if(i<num){
+            if(num%i==0){
+                count=count+1;
+            }
+            i=i+1;
+            goto loop;
+        }
+       loop_sum:
+       if(num>0){
+        sum=sum+num%10;
+        num=num/10;
+        goto loop_sum;
+       }
+       printf("%d\n",sum);
+    }
+    printf("%d\n",sum);
+    sum1=sum;
+    if(count==0 && (sum1 ==14)){
+        printf("Prime & Sum of Digits is 14");
+    }
+    else if(count==0 && sum1 !=14){
+        printf("Prime, but Sum of Digits is not 14");
+    }
+    else if(count!=0 && sum1 == 14){
+        printf("Not prime, but Sum of Digits is 14");
+    }
+    else if(count!=0 && sum1!=14){
+        printf("Not prime & Sum of Digits is not 14");
+    }
+    return 0;
+}
+// ======================================================================================
+
 
 
