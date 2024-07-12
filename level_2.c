@@ -280,3 +280,41 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// ======================================================================================
+// Question: Write a program to get a number from user and if the last digit of the number is even print the same number. If the last digit of the number is odd then subtract 1 from the last digit and print the number.
+// (Note: Last digit -MSB)
+// Answer: Input : 123456 - Output – 123456
+// Input : 96895439- Output – 86895439
+// Input : 675 – Output - 575
+#include <stdio.h>
+int main(){
+    int num,evenmsb,oddmsb,rim,rev=0,sub,rim2,rev2;
+    printf("enter the num:");
+    scanf("%d",&num);
+    evenmsb=num;
+    loop:
+    if(num>9){
+        rim=num%10;
+        rev=rev*10+rim;
+        num=num/10;
+        goto loop;
+    }
+    if((evenmsb%10)%2==0){
+        printf("%d",evenmsb);
+    }
+    else{
+        sub=num-1;
+        rev2=sub;
+        restore:
+        if(rev>0){
+            rim2=rev%10;
+            rev2=rev2*10+rim2;
+            rev=rev/10;
+            goto restore;
+        }
+        printf("%d",rev2);
+    }
+    return 0;
+}
+// ======================================================================================
+
