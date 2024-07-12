@@ -326,12 +326,8 @@ int main(){
     int num,count=0,prime=false,i=2;
     printf("enter the num:");
     scanf("%d",&num);
-    if(num==0){
+    if(num==0 || num==1){
         printf("Not Prime");
-    }
-    else if (num==1)
-    {
-        printf("Prime");
     }
     else{
          loop:
