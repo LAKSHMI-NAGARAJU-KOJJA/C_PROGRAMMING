@@ -484,7 +484,24 @@ printf("%d\n",sum);
 return 0;
 }
 // ======================================================================================
-
-
-
-
+// Question: Write a program get number from user print the total number digits which are odd in the number.
+// Answer: Input : 12345678 - Output : 4
+// Input : 987531 - Output : 5
+#include <stdio.h>
+int main(){
+    int num,i=0,rim,rev=0,odd,count=0;
+    printf("enter the num:");
+    scanf("%d",&num);
+    loop:
+    if(num>0){
+       rim=num%10;
+       if(rim%2!=0){
+        count=count+1;
+       }
+       num=num/10;
+       goto loop;
+    }
+    printf("%d\n",count);
+    return 0;
+}
+// ======================================================================================
