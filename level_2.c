@@ -428,6 +428,62 @@ int main(){
     return 0;
 }
 // ======================================================================================
+// Question 19: Write a program to get a 4-digit number from user, print whether that number’s middle two digits (hundred’s digit and ten’s digit) is prime.
+// Answer: Input: 6359 - Output: Not Prime
+// Input: 3517 - Output: Not Prime
+#include <stdio.h>
+int main(){
+    int num,middle_digits,i=2,count=0;
+    printf("enter the num:");
+    scanf("%d",&num);
+    if(num>999&&num<10000){
+        middle_digits=((num/10)%100);
+        printf("%d\n",middle_digits);
+        loop:
+        if(i<middle_digits){
+            if(middle_digits%i==0){
+                count=count+1;
+            }
+            i=i+1;
+            goto loop;
+        }
+        printf("%d\n",count);
+        if(count==0){
+            printf("Prime");
+        }
+        else{
+            printf("Not prime");
+        }
+    }
+    else{
+        printf("enter a valid 4digit +ve num!");
+    }
+    return 0;
+}
+// ======================================================================================
+// Question 20: Write a program print total number of single digit Prime numbers
+// Answer: 4
+#include <stdio.h>
+int main(){
+    int num=2,div,i=2,count=0,sum=0;
+   for(int i=2;i<10;i++){
+    for(int j=2;j<i;j++){
+        if(i%j==0){
+            count=count+1;
+        }
+    }
+    if(count==0){
+        sum=sum+i;
+    }
+    else{
+        count=0;
+    }
+  
+}
+printf("%d\n",sum);
+return 0;
+}
+// ======================================================================================
 
 
 
