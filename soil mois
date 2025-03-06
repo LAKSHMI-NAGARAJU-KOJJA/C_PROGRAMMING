@@ -1,0 +1,151 @@
+/*
+=====================================
+🟢 Case 1: Reading Soil Moisture Sensor Data
+=====================================
+*/
+// 🌟 Connections:
+// VCC -> 5V
+// GND -> GND
+// A0  -> A0 (Analog input)
+
+#define SOIL_SENSOR_PIN A0
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soilValue = analogRead(SOIL_SENSOR_PIN);
+  
+  Serial.print("Soil Moisture Level: ");
+  Serial.println(soilValue);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Controlling LED Based on Soil Moisture
+=====================================
+*/
+// 🌟 Connections:
+// Soil Moisture Sensor -> A0 (Analog input)
+// LED -> D7 (Output with 220Ω resistor)
+
+#define LED_PIN 7
+#define SOIL_SENSOR_PIN A0
+#define DRY_THRESHOLD 500  // Adjust based on your sensor readings
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soilValue = analogRead(SOIL_SENSOR_PIN);
+  Serial.print("Soil Moisture Level: ");
+  Serial.println(soilValue);
+
+  if (soilValue > DRY_THRESHOLD) {
+    digitalWrite(LED_PIN, HIGH);  // Turn ON LED if soil is dry
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn OFF LED if soil is wet
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Controlling Water Pump Based on Soil Moisture
+=====================================
+*/
+// 🌟 Connections:
+// Soil Moisture Sensor -> A0
+// Relay Module (for pump) -> D8
+
+#define RELAY_PIN 8
+#define SOIL_SENSOR_PIN A0
+#define DRY_THRESHOLD 500  // Adjust based on your soil condition
+
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soilValue = analogRead(SOIL_SENSOR_PIN);
+  Serial.print("Soil Moisture Level: ");
+  Serial.println(soilValue);
+
+  if (soilValue > DRY_THRESHOLD) {
+    digitalWrite(RELAY_PIN, HIGH);  // Turn ON pump when soil is dry
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn OFF pump when soil is wet
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Displaying Soil Moisture on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+#define SOIL_SENSOR_PIN A0
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soilValue = analogRead(SOIL_SENSOR_PIN);
+  Serial.print("Soil Moisture Level: ");
+  Serial.println(soilValue);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Moisture Level:");
+  lcd.setCursor(0, 1);
+  lcd.print(soilValue);
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Soil Moisture with Buzzer Alarm
+=====================================
+*/
+// 🌟 Connections:
+// Soil Moisture Sensor -> A0
+// Buzzer -> D6
+
+#define BUZZER_PIN 6
+#define SOIL_SENSOR_PIN A0
+#define DRY_THRESHOLD 500
+
+void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soilValue = analogRead(SOIL_SENSOR_PIN);
+  Serial.print("Soil Moisture Level: ");
+  Serial.println(soilValue);
+
+  if (soilValue > DRY_THRESHOLD) {
+    digitalWrite(BUZZER_PIN, HIGH);  // Buzzer ON when soil is dry
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);   // Buzzer OFF when soil is wet
+  }
+
+  delay(500);
+}
