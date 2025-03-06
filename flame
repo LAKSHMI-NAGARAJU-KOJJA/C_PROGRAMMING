@@ -1,0 +1,153 @@
+/*
+=====================================
+🟢 Case 1: Reading Rain Drop Sensor Data
+=====================================
+*/
+// 🌟 Connections:
+// VCC -> 5V
+// GND -> GND
+// A0  -> A0 (Analog Input on Arduino)
+
+#define RAIN_SENSOR_PIN A0  
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int rainValue = analogRead(RAIN_SENSOR_PIN);
+  
+  Serial.print("Rain Sensor Value: ");
+  Serial.println(rainValue);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Detecting Rain and Triggering LED Alert
+=====================================
+*/
+// 🌟 Connections:
+// Rain Sensor -> A0 (Analog Input)
+// LED -> D7 (Output with 220Ω resistor)
+
+#define LED_PIN 7
+#define RAIN_SENSOR_PIN A0
+#define RAIN_THRESHOLD 500  // Adjust based on your sensor readings
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int rainValue = analogRead(RAIN_SENSOR_PIN);
+  Serial.print("Rain Sensor Value: ");
+  Serial.println(rainValue);
+
+  if (rainValue < RAIN_THRESHOLD) {  // Rain detected
+    digitalWrite(LED_PIN, HIGH);  // Turn ON LED
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn OFF LED
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Rain Detection with Buzzer Alarm
+=====================================
+*/
+// 🌟 Connections:
+// Rain Sensor -> A0
+// Buzzer -> D6
+
+#define BUZZER_PIN 6
+#define RAIN_SENSOR_PIN A0
+#define RAIN_THRESHOLD 500
+
+void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int rainValue = analogRead(RAIN_SENSOR_PIN);
+  Serial.print("Rain Sensor Value: ");
+  Serial.println(rainValue);
+
+  if (rainValue < RAIN_THRESHOLD) {
+    digitalWrite(BUZZER_PIN, HIGH);  // Buzzer ON when rain is detected
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);   // Buzzer OFF
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Automatic Roof Cover System (Rain Detection with Servo Motor)
+=====================================
+*/
+// 🌟 Connections:
+// Rain Sensor -> A0
+// Servo Motor -> D9
+
+#include <Servo.h>
+
+Servo roofServo;
+#define RAIN_SENSOR_PIN A0
+#define RAIN_THRESHOLD 500
+
+void setup() {
+  roofServo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int rainValue = analogRead(RAIN_SENSOR_PIN);
+  Serial.print("Rain Sensor Value: ");
+  Serial.println(rainValue);
+
+  if (rainValue < RAIN_THRESHOLD) {  
+    roofServo.write(90);  // Move servo to cover the roof
+  } else {
+    roofServo.write(0);  // Move servo back
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Displaying Rain Sensor Value on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+#define RAIN_SENSOR_PIN A0
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int rainValue = analogRead(RAIN_SENSOR_PIN);
+  Serial.print("Rain Sensor Value: ");
+  Serial.println(rainValue);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Rain Level:");
+  lcd.setCursor(0, 1);
+  lcd.print(rainValue);
+
+  delay(500);
+}
