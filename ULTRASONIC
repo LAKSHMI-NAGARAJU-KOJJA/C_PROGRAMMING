@@ -1,0 +1,224 @@
+/*
+=====================================
+🟢 Case 1: Reading Distance from Ultrasonic Sensor
+=====================================
+*/
+// Ultrasonic Sensor with Arduino
+// 🌟 Connections:
+// VCC -> 5V
+// GND -> GND
+// TRIG -> D9
+// ECHO -> D10
+
+#define TRIG_PIN 9
+#define ECHO_PIN 10
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Controlling LED Based on Distance (Proximity Indicator)
+=====================================
+*/
+// 🌟 Connections:
+// Ultrasonic Sensor -> D9 (TRIG), D10 (ECHO)
+// LED -> D7 with 220Ω resistor
+
+#define LED_PIN 7
+#define DISTANCE_THRESHOLD 20  // cm
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  if (distance < DISTANCE_THRESHOLD) {
+    digitalWrite(LED_PIN, HIGH);  // Turn LED ON if object is close
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn LED OFF if object is far
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Controlling Relay with Ultrasonic Sensor
+=====================================
+*/
+// 🌟 Connections:
+// Relay -> Pin 8 (IN), VCC, GND
+// Ultrasonic Sensor -> D9 (TRIG), D10 (ECHO)
+
+#define RELAY_PIN 8
+
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  if (distance < DISTANCE_THRESHOLD) {
+    digitalWrite(RELAY_PIN, HIGH);  // Turn ON relay
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn OFF relay
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Displaying Distance on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Distance:");
+  lcd.setCursor(0, 1);
+  lcd.print(distance);
+  lcd.print(" cm");
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Controlling Servo Motor Based on Distance
+=====================================
+*/
+#include <Servo.h>
+
+Servo myServo;
+
+void setup() {
+  myServo.attach(6);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  int servoPos = map(distance, 0, 100, 0, 180); // Map distance to servo angle
+  myServo.write(servoPos);
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 6: Ultrasonic-Based Parking Sensor with Buzzer
+=====================================
+*/
+// 🌟 Connections:
+// Buzzer -> Pin 8
+// Ultrasonic Sensor -> D9 (TRIG), D10 (ECHO)
+
+#define BUZZER_PIN 8
+
+void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  if (distance < DISTANCE_THRESHOLD) {
+    digitalWrite(BUZZER_PIN, HIGH);  // Buzzer ON when object is close
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);   // Buzzer OFF when object is far
+  }
+
+  delay(500);
+}
