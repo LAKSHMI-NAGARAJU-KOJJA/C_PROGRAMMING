@@ -1,0 +1,151 @@
+/*
+=====================================
+🟢 Case 1: Reading Flame Sensor Data
+=====================================
+*/
+// 🌟 Connections:
+// VCC -> 5V
+// GND -> GND
+// A0  -> A0 (Analog input)
+
+#define FLAME_SENSOR_PIN A0
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flameValue = analogRead(FLAME_SENSOR_PIN);
+  
+  Serial.print("Flame Sensor Value: ");
+  Serial.println(flameValue);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Detecting Fire and Triggering LED Alert
+=====================================
+*/
+// 🌟 Connections:
+// Flame Sensor -> A0 (Analog input)
+// LED -> D7 (Output with 220Ω resistor)
+
+#define LED_PIN 7
+#define FLAME_SENSOR_PIN A0
+#define FIRE_THRESHOLD 400  // Adjust based on your sensor readings
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flameValue = analogRead(FLAME_SENSOR_PIN);
+  Serial.print("Flame Sensor Value: ");
+  Serial.println(flameValue);
+
+  if (flameValue < FIRE_THRESHOLD) {  // Fire detected
+    digitalWrite(LED_PIN, HIGH);  // Turn ON LED
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn OFF LED
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Fire Detection with Buzzer Alarm
+=====================================
+*/
+// 🌟 Connections:
+// Flame Sensor -> A0
+// Buzzer -> D6
+
+#define BUZZER_PIN 6
+#define FLAME_SENSOR_PIN A0
+#define FIRE_THRESHOLD 400
+
+void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flameValue = analogRead(FLAME_SENSOR_PIN);
+  Serial.print("Flame Sensor Value: ");
+  Serial.println(flameValue);
+
+  if (flameValue < FIRE_THRESHOLD) {
+    digitalWrite(BUZZER_PIN, HIGH);  // Buzzer ON when fire is detected
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);   // Buzzer OFF
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Fire Detection and Automatic Water Sprinkler
+=====================================
+*/
+// 🌟 Connections:
+// Flame Sensor -> A0
+// Relay Module (for water pump) -> D8
+
+#define RELAY_PIN 8
+#define FLAME_SENSOR_PIN A0
+#define FIRE_THRESHOLD 400
+
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flameValue = analogRead(FLAME_SENSOR_PIN);
+  Serial.print("Flame Sensor Value: ");
+  Serial.println(flameValue);
+
+  if (flameValue < FIRE_THRESHOLD) {
+    digitalWrite(RELAY_PIN, HIGH);  // Turn ON water pump
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn OFF water pump
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Displaying Flame Sensor Value on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+#define FLAME_SENSOR_PIN A0
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flameValue = analogRead(FLAME_SENSOR_PIN);
+  Serial.print("Flame Sensor Value: ");
+  Serial.println(flameValue);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Flame Level:");
+  lcd.setCursor(0, 1);
+  lcd.print(flameValue);
+
+  delay(500);
+}
