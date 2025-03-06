@@ -1,0 +1,184 @@
+/*
+=====================================
+🟢 Case 1: Reading Analog Output (Sound Intensity)
+=====================================
+*/
+// Sound Sensor with Arduino (Analog Output)
+// 🌟 Connections:
+// AO (Analog Output) → A0 (Arduino Analog Pin)
+// GND → GND
+// VCC → 5V
+
+#define SOUND_SENSOR_PIN A0  // Sound sensor connected to A0
+
+void setup() {
+  Serial.begin(9600); // Start serial monitor
+}
+
+void loop() {
+  int soundValue = analogRead(SOUND_SENSOR_PIN); // Read Sound Sensor value (0-1023)
+  Serial.print("Sound Analog Value: ");
+  Serial.println(soundValue); // Print value to Serial Monitor
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Using Sound Sensor as a Digital Sensor (Threshold-Based)
+=====================================
+*/
+// Sound Sensor with Arduino (Digital Output - Clapping Detection)
+// 🌟 Connections:
+// DO (Digital Output) → D2 (Arduino Digital Pin)
+// GND → GND
+// VCC → 5V
+// LED at pin 7 with 220Ω resistor
+
+#define SOUND_SENSOR_DIGITAL_PIN 2  // Digital Pin for sound detection
+#define LED_PIN 7           // LED output pin
+
+void setup() {
+  pinMode(SOUND_SENSOR_DIGITAL_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundState = digitalRead(SOUND_SENSOR_DIGITAL_PIN);
+  Serial.print("Sound Digital State: ");
+  Serial.println(soundState);
+
+  if (soundState == HIGH) {  
+    digitalWrite(LED_PIN, HIGH);  // Turn LED ON when sound is detected
+    Serial.println("Sound Detected!");
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn LED OFF when no sound
+  }
+  
+  delay(100);
+}
+
+/*
+=====================================
+🟢 Case 3: Controlling Relay with Sound Sensor (Sound-Activated Switch)
+=====================================
+*/
+// 🌟 Connections:
+// Relay -> Pin 8 (IN), VCC, GND
+// DO (Digital Output) → D2 (Arduino Digital Pin)
+
+#define RELAY_PIN 8  
+
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  pinMode(SOUND_SENSOR_DIGITAL_PIN, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundState = digitalRead(SOUND_SENSOR_DIGITAL_PIN);
+  Serial.print("Sound State: ");
+  Serial.println(soundState);
+
+  if (soundState == HIGH) {  
+    digitalWrite(RELAY_PIN, HIGH);  // Turn ON Relay when sound is detected
+    Serial.println("Relay ON");
+    delay(1000); // Keep relay ON for 1 sec
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn OFF Relay
+  }
+  delay(100);
+}
+
+/*
+=====================================
+🟢 Case 4: Displaying Sound Sensor Value on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // I2C address 0x27 for 16x2 LCD
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundValue = analogRead(SOUND_SENSOR_PIN);
+  Serial.print("Sound Value: ");
+  Serial.println(soundValue);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Sound Level:");
+  lcd.setCursor(0, 1);
+  lcd.print(soundValue);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Controlling Servo Motor Based on Sound Sensor (Clap to Rotate Servo)
+=====================================
+*/
+#include <Servo.h>
+
+Servo myServo;  
+
+void setup() {
+  myServo.attach(9);
+  pinMode(SOUND_SENSOR_DIGITAL_PIN, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundState = digitalRead(SOUND_SENSOR_DIGITAL_PIN);
+  Serial.print("Sound State: ");
+  Serial.println(soundState);
+
+  if (soundState == HIGH) {  
+    myServo.write(90);  // Rotate servo to 90 degrees
+    Serial.println("Sound Detected! Rotating Servo...");
+    delay(1000);        // Keep position for a second
+  } else {
+    myServo.write(0);   // Reset servo position
+  }
+  
+  delay(100);
+}
+
+/*
+=====================================
+🟢 Case 6: Using Sound Sensor for Security Alarm
+=====================================
+*/
+// 🌟 Connections:
+// DO (Digital Output) → D2 (Arduino Digital Pin)
+// Buzzer → Pin 8 (Positive), GND (Negative)
+
+#define BUZZER_PIN 8  
+
+void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(SOUND_SENSOR_DIGITAL_PIN, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundState = digitalRead(SOUND_SENSOR_DIGITAL_PIN);
+  Serial.print("Sound State: ");
+  Serial.println(soundState);
+
+  if (soundState == HIGH) {  
+    digitalWrite(BUZZER_PIN, HIGH);  // Activate alarm
+    Serial.println("Alarm Triggered!");
+    delay(1000); // Alarm duration
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);   // Turn OFF alarm
+  }
+  delay(100);
+}
