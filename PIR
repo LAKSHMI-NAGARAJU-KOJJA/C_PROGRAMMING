@@ -1,0 +1,177 @@
+/*
+=====================================
+🟢 Case 1: Reading PIR Sensor Output (Basic Motion Detection)
+=====================================
+*/
+// PIR Sensor with Arduino (Digital Output)
+// 🌟 Connections:
+// PIR Sensor VCC - 5V
+// PIR Sensor GND - GND
+// PIR Sensor OUT - D2
+
+#define PIR_PIN 2  // PIR sensor connected to Digital pin 2
+
+void setup() {
+  Serial.begin(9600); // Start serial monitor
+  pinMode(PIR_PIN, INPUT);
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN); // Read PIR output (HIGH/LOW)
+  Serial.print("PIR Sensor State: ");
+  Serial.println(pirState); // Print value to Serial Monitor
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Controlling LED with PIR Sensor (Motion-Activated Light)
+=====================================
+*/
+// 🌟 Connections:
+// PIR Sensor VCC - 5V
+// PIR Sensor GND - GND
+// PIR Sensor OUT - D2
+// LED at pin 7 with 220Ω resistor
+
+#define LED_PIN 7  
+
+void setup() {
+  pinMode(PIR_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);
+  Serial.print("PIR Sensor State: ");
+  Serial.println(pirState);
+
+  if (pirState == HIGH) {  
+    digitalWrite(LED_PIN, HIGH);  // Turn LED ON when motion is detected
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn LED OFF when no motion
+  }
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Controlling Relay with PIR Sensor (Automatic Security Light)
+=====================================
+*/
+// 🌟 Connections:
+// Relay -> Pin 8 (IN), VCC, GND
+// PIR Sensor -> D2 (Digital Input)
+
+#define RELAY_PIN 8  
+
+void setup() {
+  pinMode(PIR_PIN, INPUT);
+  pinMode(RELAY_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);
+  Serial.print("PIR Sensor State: ");
+  Serial.println(pirState);
+
+  if (pirState == HIGH) {  
+    digitalWrite(RELAY_PIN, HIGH);  // Turn ON Relay when motion is detected
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn OFF Relay when no motion
+  }
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Displaying PIR Sensor State on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // I2C address 0x27 for 16x2 LCD
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+  pinMode(PIR_PIN, INPUT);
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);
+  Serial.print("PIR State: ");
+  Serial.println(pirState);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Motion Detected:");
+  lcd.setCursor(0, 1);
+  lcd.print(pirState == HIGH ? "YES" : "NO");
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Controlling Servo Motor Based on Motion
+=====================================
+*/
+#include <Servo.h>
+
+Servo myServo;  
+
+void setup() {
+  myServo.attach(9);
+  Serial.begin(9600);
+  pinMode(PIR_PIN, INPUT);
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);
+  Serial.print("PIR State: ");
+  Serial.println(pirState);
+
+  if (pirState == HIGH) {  
+    myServo.write(90); // Move servo to 90 degrees when motion is detected
+  } else {
+    myServo.write(0);  // Move servo back to 0 degrees
+  }
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 6: PIR Sensor-Based Security Alarm
+=====================================
+*/
+// 🌟 Connections:
+// Buzzer -> Pin 8
+// PIR Sensor -> D2
+
+#define BUZZER_PIN 8  
+
+void setup() {
+  pinMode(PIR_PIN, INPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int pirState = digitalRead(PIR_PIN);
+  Serial.print("PIR State: ");
+  Serial.println(pirState);
+
+  if (pirState == HIGH) {  
+    digitalWrite(BUZZER_PIN, HIGH);  // Trigger alarm if motion is detected
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);
+  }
+  delay(500);
+}
