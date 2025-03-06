@@ -1,1 +1,169 @@
+/*
+=====================================
+🟢 Case 1: Reading Analog Output (Light Intensity)
+=====================================
+*/
+// LDR Sensor with Arduino (Analog Output)
+// 🌟 Connections:
+// LDR One Leg - A0 (Analog Input on Arduino)
+// LDR Other Leg - VCC (5V)
+// 10K Resistor between GND and LDR leg (Voltage Divider)
 
+#define LDR_PIN A0  // LDR sensor connected to Analog pin A0
+
+void setup() {
+  Serial.begin(9600); // Start serial monitor
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN); // Read LDR value (0-1023)
+  Serial.print("LDR Analog Value: ");
+  Serial.println(ldrValue); // Print value to Serial Monitor
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Using LDR as a Digital Sensor (Threshold Based)
+=====================================
+*/
+// LDR Sensor with Arduino (Digital Output)
+// 🌟 Connections:
+// LDR One Leg - A0 (for analog reading)
+// LDR Other Leg - VCC (5V)
+// 10K Resistor between GND and LDR leg (Voltage Divider)
+// LED at pin 7 with 220Ω resistor
+
+#define LED_PIN 7   // LED output pin
+#define THRESHOLD 500 // Set light intensity threshold
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.print("LDR Analog Value: ");
+  Serial.println(ldrValue);
+
+  if (ldrValue < THRESHOLD) {  
+    digitalWrite(LED_PIN, HIGH);  // Turn LED ON in dark
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn LED OFF in light
+  }
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Controlling Relay with LDR (Automatic Light System)
+=====================================
+*/
+// 🌟 Connections:
+// Relay -> Pin 8 (IN), VCC, GND
+// LDR -> A0 (Analog Input)
+// 10K Resistor -> GND (Voltage Divider)
+#define RELAY_PIN 8  
+
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue);
+
+  if (ldrValue < THRESHOLD) {  
+    digitalWrite(RELAY_PIN, HIGH);  // Turn ON Relay in dark
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn OFF Relay in light
+  }
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Displaying LDR Value on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // I2C address 0x27 for 16x2 LCD
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("LDR Value:");
+  lcd.setCursor(0, 1);
+  lcd.print(ldrValue);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Controlling Servo Motor Based on Light Intensity
+=====================================
+*/
+#include <Servo.h>
+
+Servo myServo;  
+
+void setup() {
+  myServo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue);
+
+  int servoPos = map(ldrValue, 0, 1023, 0, 180); // Map LDR value to servo angle
+  myServo.write(servoPos);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 6: Using Laser Module with LDR for Security
+=====================================
+*/
+#define LASER_PIN 7  
+#define BUZZER_PIN 8  
+
+void setup() {
+  pinMode(LASER_PIN, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(LASER_PIN, HIGH);  // Turn on laser
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue);
+
+  if (ldrValue < THRESHOLD) {  
+    digitalWrite(BUZZER_PIN, HIGH);  // Trigger alarm if laser is cut
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);
+  }
+  delay(500);
+}
