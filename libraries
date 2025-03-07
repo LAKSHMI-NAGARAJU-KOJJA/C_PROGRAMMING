@@ -2,4 +2,12 @@ LiquidCrystal_I2C.h
 https://github.com/johnrickman/LiquidCrystal_I2C
 
 
+The Wire.h library is the official Arduino library for I2C communication. You can find its source code on GitHub at the following link:
+
+🔗 Wire Library (Arduino Core) GitHub Repository:
+https://github.com/arduino/ArduinoCore-avr/tree/master/libraries/Wire
+
+This library is pre-installed with the Arduino IDE, so you typically don't need to install it separately. However, if you're working with a custom board or need to modify the library, you can download it from the link above.
+
+
 
