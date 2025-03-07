@@ -1,0 +1,130 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+// =====================================
+// 🔹 Case 1: Display "Hello World!"
+// =====================================
+void helloWorld() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Hello, World!");
+  delay(2000);
+}
+
+// =====================================
+// 🔹 Case 2: Scrolling Text
+// =====================================
+void scrollText() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Scrolling Text!");
+
+  for (int i = 0; i < 16; i++) {  
+    lcd.scrollDisplayLeft();
+    delay(300);
+  }
+  
+  for (int i = 0; i < 16; i++) {
+    lcd.scrollDisplayRight();
+    delay(300);
+  }
+}
+
+// =====================================
+// 🔹 Case 3: Blinking Text
+// =====================================
+void blinkingText() {
+  lcd.clear();
+  lcd.setCursor(4, 0);
+  lcd.print("Blinking");
+  
+  for (int i = 0; i < 5; i++) {
+    lcd.noDisplay();  // Hide text
+    delay(500);
+    lcd.display();    // Show text
+    delay(500);
+  }
+}
+
+// =====================================
+// 🔹 Case 4: Custom Character (Smiley Face 😀)
+// =====================================
+void customCharacter() {
+  lcd.clear();
+
+  byte smiley[8] = {
+    0b00000,
+    0b01010,
+    0b01010,
+    0b00000,
+    0b10001,
+    0b01110,
+    0b00000,
+    0b00000
+  };
+
+  lcd.createChar(0, smiley);
+  lcd.setCursor(5, 0);
+  lcd.write(byte(0));  // Display custom character
+  
+  delay(2000);
+}
+
+// =====================================
+// 🔹 Case 5: Clear LCD
+// =====================================
+void clearLCD() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Message Cleared!");
+  delay(2000);
+}
+
+// =====================================
+// 🔹 Case 6: Display Vibration Sensor Data
+// =====================================
+#define VIBRATION_SENSOR_PIN A0
+
+void displayVibrationSensor() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Vibration Level:");
+
+  for (int i = 0; i < 10; i++) {  
+    int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+    lcd.setCursor(0, 1);
+    lcd.print("Value: ");
+    lcd.print(vibrationValue);
+    Serial.print("Vibration Sensor Value: ");
+    Serial.println(vibrationValue);
+    delay(500);
+  }
+}
+
+void loop() {
+  helloWorld();
+  delay(1000);
+  
+  scrollText();
+  delay(1000);
+  
+  blinkingText();
+  delay(1000);
+  
+  customCharacter();
+  delay(1000);
+  
+  clearLCD();
+  delay(1000);
+  
+  displayVibrationSensor();
+  delay(1000);
+}
