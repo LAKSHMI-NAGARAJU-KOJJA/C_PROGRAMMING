@@ -1,0 +1,184 @@
+Here are individual Arduino codes for LDR, Soil Moisture, PIR, IR, and Ultrasonic Sensors, all without using external libraries.
+
+
+---
+
+🔹 1. LDR Sensor (Light Dependent Resistor)
+
+📌 Connections:
+
+#define LDR_PIN A0  
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lightValue = analogRead(LDR_PIN);
+  Serial.print("Light Intensity: ");
+  Serial.println(lightValue);
+  delay(500);
+}
+
+
+---
+
+🔹 2. Soil Moisture Sensor
+
+📌 Connections:
+
+#define SOIL_SENSOR_PIN A0  
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soilValue = analogRead(SOIL_SENSOR_PIN);
+  Serial.print("Soil Moisture Level: ");
+  Serial.println(soilValue);
+  delay(500);
+}
+
+
+---
+
+🔹 3. PIR Motion Sensor
+
+📌 Connections:
+
+#define PIR_PIN 2  
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(PIR_PIN, INPUT);
+}
+
+void loop() {
+  int motion = digitalRead(PIR_PIN);
+  if (motion == HIGH) {
+    Serial.println("Motion Detected!");
+  } else {
+    Serial.println("No Motion.");
+  }
+  delay(500);
+}
+
+
+---
+
+🔹 4. IR Sensor
+
+📌 Connections:
+
+#define IR_SENSOR_PIN 3  
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(IR_SENSOR_PIN, INPUT);
+}
+
+void loop() {
+  int obstacle = digitalRead(IR_SENSOR_PIN);
+  if (obstacle == LOW) {
+    Serial.println("Object Detected!");
+  } else {
+    Serial.println("No Object.");
+  }
+  delay(500);
+}
+
+
+---
+
+🔹 5. Ultrasonic Sensor (HC-SR04)
+
+📌 Connections:
+
+#define TRIG_PIN 4
+#define ECHO_PIN 5
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+}
+
+void loop() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  int distance = duration * 0.034 / 2;
+  
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  delay(500);
+}
+
+
+---
+🔹 Sound Sensor (KY-038 / LM393)
+
+📌 Connections:
+
+
+---
+
+1️⃣ Case 1: Reading Sound Level (Analog Output)
+
+This code reads the analog output of the sound sensor and prints the sound level.
+
+#define SOUND_SENSOR_PIN A0  
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundValue = analogRead(SOUND_SENSOR_PIN);
+  Serial.print("Sound Level: ");
+  Serial.println(soundValue);
+  delay(500);
+}
+
+
+---
+
+2️⃣ Case 2: Detecting Sound with LED Alert (Digital Output)
+
+This code reads the digital output of the sound sensor. If a sound is detected (above the threshold), an LED will turn on.
+
+📌 Additional Connections:
+
+#define SOUND_SENSOR_PIN 2  // Digital output of sound sensor
+#define LED_PIN 7  
+
+void setup() {
+  pinMode(SOUND_SENSOR_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundDetected = digitalRead(SOUND_SENSOR_PIN);
+  
+  if (soundDetected == LOW) {  // Sound detected (LOW means sound detected for LM393)
+    Serial.println("Sound Detected!");
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    Serial.println("No Sound.");
+    digitalWrite(LED_PIN, LOW);
+  }
+  
+  delay(500);
+}
+
+
+---
