@@ -1,0 +1,153 @@
+/*
+=====================================
+🟢 Case 1: Reading Vibration Sensor Data (Analog Output)
+=====================================
+*/
+// 🌟 Connections:
+// Vibration Sensor VCC -> 5V
+// Vibration Sensor GND -> GND
+// Vibration Sensor OUT -> A0 (Analog Input on Arduino)
+
+#define VIBRATION_SENSOR_PIN A0  
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+  
+  Serial.print("Vibration Sensor Value: ");
+  Serial.println(vibrationValue);
+  
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 2: Detecting Vibration and Triggering LED Alert (Threshold-Based)
+=====================================
+*/
+// 🌟 Connections:
+// Vibration Sensor -> A0 (Analog Input)
+// LED -> D7 (Output with 220Ω resistor)
+
+#define LED_PIN 7
+#define VIBRATION_SENSOR_PIN A0
+#define VIBRATION_THRESHOLD 500  // Adjust based on sensor readings
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+  Serial.print("Vibration Sensor Value: ");
+  Serial.println(vibrationValue);
+
+  if (vibrationValue > VIBRATION_THRESHOLD) {  // Vibration detected
+    digitalWrite(LED_PIN, HIGH);  // Turn ON LED
+  } else {
+    digitalWrite(LED_PIN, LOW);   // Turn OFF LED
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 3: Vibration Detection with Buzzer Alarm
+=====================================
+*/
+// 🌟 Connections:
+// Vibration Sensor -> A0
+// Buzzer -> D6
+
+#define BUZZER_PIN 6
+#define VIBRATION_SENSOR_PIN A0
+#define VIBRATION_THRESHOLD 500
+
+void setup() {
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+  Serial.print("Vibration Sensor Value: ");
+  Serial.println(vibrationValue);
+
+  if (vibrationValue > VIBRATION_THRESHOLD) {
+    digitalWrite(BUZZER_PIN, HIGH);  // Buzzer ON when vibration is detected
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);   // Buzzer OFF
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 4: Automatic Safety System (Vibration Detection with Servo Motor)
+=====================================
+*/
+// 🌟 Connections:
+// Vibration Sensor -> A0
+// Servo Motor -> D9
+
+#include <Servo.h>
+
+Servo safetyServo;
+#define VIBRATION_SENSOR_PIN A0
+#define VIBRATION_THRESHOLD 500
+
+void setup() {
+  safetyServo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+  Serial.print("Vibration Sensor Value: ");
+  Serial.println(vibrationValue);
+
+  if (vibrationValue > VIBRATION_THRESHOLD) {  
+    safetyServo.write(90);  // Move servo to trigger safety mechanism
+  } else {
+    safetyServo.write(0);  // Reset servo position
+  }
+
+  delay(500);
+}
+
+/*
+=====================================
+🟢 Case 5: Displaying Vibration Sensor Value on LCD
+=====================================
+*/
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+#define VIBRATION_SENSOR_PIN A0
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int vibrationValue = analogRead(VIBRATION_SENSOR_PIN);
+  Serial.print("Vibration Sensor Value: ");
+  Serial.println(vibrationValue);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Vibration Level:");
+  lcd.setCursor(0, 1);
+  lcd.print(vibrationValue);
+
+  delay(500);
+}
